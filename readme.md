@@ -22,13 +22,18 @@ Desta maneira, não é necessário consultar o `Redis` a todo o momento, economi
 ## Como executar
 Após clonar o repositório, você deverá navegar até a pasta raiz e executar os seguintes passos:
 
+### Docker Compose
+- Executar o comando `docker-compose up` para levantar um `KeyDB` (alternativa ao `Redis`) e a aplicação.
+- Acessar [http://localhost:5000](http://localhost:5000)
+
+### Ambiente local
 - Executar o comando `redis-cli config set notify-keyspace-events KEA` para habilitar as [notificações de keyspace](https://redis.io/topics/notifications) do Redis;
 - Executar o comando `poetry install` para instalar as dependências;
 - Alterar o arquivo `fastapi_rate_limit/main.py` adicionando as configurações do Redis;
-- Executar o comando `uvicorn --port 7000 main:app` para executar o projeto.
-- Acessar [http://localhost:7000](http://localhost:7000)
+- Executar o comando `uvicorn --port 5000 main:app` para executar o projeto.
+- Acessar [http://localhost:5000](http://localhost:5000)
 
-### Endpoints
+## Endpoints
 A API possui dois endpoits:
 
 - GET [/](http://localhost:7000/) Retorna um JSON com todos os contadores atuais.
@@ -36,4 +41,4 @@ A API possui dois endpoits:
 
 ## Próximos passos
 - [ ] Adicionar controle de Rate Limit através de um *[middleware](https://fastapi.tiangolo.com/advanced/middleware/)*
-- [ ] Adicionar execução por Docker
+- [x] Adicionar execução por Docker
