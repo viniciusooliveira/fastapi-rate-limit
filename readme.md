@@ -18,6 +18,11 @@ O `Redis` também nos disponibiliza uma maneira atômica de incrementar os conta
 Também foi utilizado o serviço de `Pub/Sub` que o `Redis` oferece, permitindo que sempre que um contador for alterado, cada instância da API recebe uma notificação, permitindo com que cada instância tenha uma cópia local em memória de todos os contadores. 
 Desta maneira, não é necessário consultar o `Redis` a todo o momento, economizando alguns milissegundos, principalmente em casos onde a comunicação com o `Redis` seja lenta.  
 
+## Endpoints
+A API possui dois endpoits:
+
+- GET [/](http://localhost:7000/) Retorna um JSON com todos os contadores atuais.
+- GET [/test/{client_name}](http://localhost:7000/test/api_test) Altere o `client_name` para simular requisições vindos de clientes diferentes. Retorna um JSON com o contador atual do cliente, ao realizar 10 requisições em menos de um minuto para o mesmo cliente, retorna uma mensagem de erro informando que excedeu a cota.
 
 ## Como executar
 Após clonar o repositório, você deverá navegar até a pasta raiz e executar os seguintes passos:
@@ -32,12 +37,6 @@ Após clonar o repositório, você deverá navegar até a pasta raiz e executar 
 - Alterar o arquivo `fastapi_rate_limit/main.py` adicionando as configurações do Redis;
 - Executar o comando `uvicorn --port 5000 main:app` para executar o projeto.
 - Acessar [http://localhost:5000](http://localhost:5000)
-
-## Endpoints
-A API possui dois endpoits:
-
-- GET [/](http://localhost:7000/) Retorna um JSON com todos os contadores atuais.
-- GET [/test/{client_name}](http://localhost:7000/test/api_test) Altere o `client_name` para simular requisições vindos de clientes diferentes. Retorna um JSON com o contador atual do cliente, ao realizar 10 requisições em menos de um minuto para o mesmo cliente, retorna uma mensagem de erro informando que excedeu a cota.
 
 ## Próximos passos
 - [ ] Adicionar controle de Rate Limit através de um *[middleware](https://fastapi.tiangolo.com/advanced/middleware/)*
