@@ -1,11 +1,13 @@
+import os
+
 from fastapi import FastAPI
 
 from fastapi_rate_limit.workers.redis_sub_worker import RedisSubscribeWorker
 
 redis_worker = RedisSubscribeWorker(
     subscription_key="metrics:request_count",
-    host="localhost",
-    port=6379,
+    host=os.environ["REDIS_HOST"],
+    port=os.environ["REDIS_PORT"],
     password=None
 )
 

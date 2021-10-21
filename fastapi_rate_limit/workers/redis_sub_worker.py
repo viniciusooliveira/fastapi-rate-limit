@@ -36,6 +36,7 @@ class RedisSubscribeWorker:
             if message is None:
                 time.sleep(0.01)
             elif message["type"] == "pmessage":
+
                 print(message)
                 key = re.sub(r"^.*?"+self.sub_key+r"\:", "", message["channel"].decode())
                 print(key)

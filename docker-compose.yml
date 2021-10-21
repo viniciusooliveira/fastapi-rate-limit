@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+
+  keydb:
+    image: eqalpha/keydb
+    ports:
+      - "6379:6379"
+    volumes:
+      - './config/keydb.conf:/etc/keydb/keydb.conf'
+    networks:
+      - backend
+
+  api:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    environment:
+      REDIS_HOST: keydb
+      REDIS_PORT: 6379
+    ports:
+      - "5000-5003:5000"
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
